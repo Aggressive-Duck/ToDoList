@@ -1,14 +1,14 @@
 import ToDoList from './ToDoList.js'
 const toDoList = new ToDoList();
 
-export default class Ui {
+export default class UI {
     constructor() {
         
     }
 
     loadToDoList() {
         return toDoList.getAllProjects();
-    
+        
     }
 
     displayProjectDom() {

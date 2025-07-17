@@ -1,4 +1,4 @@
-import UI from "./UI.js"
+import UI from './modules/UI.js'
 
 function init() {
     const ui = new UI();
