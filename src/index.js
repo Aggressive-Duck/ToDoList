@@ -1,3 +1,9 @@
-// index.js
-import UI from './modules/UI'
+import UI from "./UI.js"
+
+function init() {
+    const ui = new UI();
+    ui.displayProjectDom();
+}
+
+init();
 

@@ -1,4 +1,3 @@
-import { ta } from "date-fns/locale";
 
 export default class Project {
     constructor(name) {
