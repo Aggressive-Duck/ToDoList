@@ -15,6 +15,11 @@ export default class Project {
         this.tasks.push(task);
     }
 
+    removeTask(taskName) {
+        const index = this.tasks.findIndex((task) => task.getName() == taskName);
+        this.tasks.splice(index,1);
+    }
+
     getTasks() {
         return this.tasks;
     }
