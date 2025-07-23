@@ -57,7 +57,7 @@ export default class UI {
     addNewTaskToProject(projectName, taskName) {
         const project = this.getProjectByName(projectName);
         const task = this.createTask(taskName);
-        project.setTasks(task);
+        project.addNewTask(task);
     }
 
     removeTaskFromProject(projectName, taskName) {

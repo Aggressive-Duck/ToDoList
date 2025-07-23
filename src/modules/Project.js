@@ -10,8 +10,12 @@ export default class Project {
     getName() {
         return this.name;
     }
+    
+    setTasks(tasks) {
+        this.tasks = tasks;
+    }
 
-    setTasks(task) {
+    addNewTask(task) {
         this.tasks.push(task);
     }
 

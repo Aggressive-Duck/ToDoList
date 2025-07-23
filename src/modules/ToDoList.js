@@ -12,6 +12,10 @@ export default class ToDoList {
         return this.projects;
     }
 
+    setProjects(projects) {
+        this.projects = projects;
+    }
+
     addNewProject(project) {
         this.projects.push(project);
     }
