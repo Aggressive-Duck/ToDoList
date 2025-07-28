@@ -1,73 +1,53 @@
-import ToDoList from './ToDoList.js'
-import Project from './Project.js';
-import Task from './Task.js';
-const toDoList = new ToDoList();
+import Project from "./Project.js"
+import Task from "./Task.js"
+import Storage from "./Storage.js"
 
 export default class UI {
-    constructor() {
-        
-    }
+  constructor() {}
 
-    loadToDoList() {
-        return toDoList.getAllProjects();
-        
-    }
+  displayAllProjects() {
+    const toDoList = Storage.getToDoList()
+    const projectsArray = toDoList.getAllProjects()
+    projectsArray.forEach((project) => {
+      console.log(project.getName())
+    })
+  }
 
-    loadTasks(project) {
-        return project.getTasks();
-    }
+  displayAllTasks(projectName) {
+    const toDoList = Storage.getToDoList()
+    const tasksArray = toDoList.getProject(projectName).getTasks()
+    tasksArray.forEach((task) => {
+      console.log(task.getName())
+    })
+  }
 
-    displayAllProjects() {
-        const projectsArray = this.loadToDoList();
-        projectsArray.forEach((project) => {
-            console.log(project.getName());
-        })
-    }
+  // getProjectByName(projectName) {
+  //   const projectsArray = this.loadToDoList()
+  //   const project = projectsArray.find((project) => {
+  //     return project.getName() === projectName
+  //   })
+  //   return project
+  // }
 
-    displayTasks(projectName) {
-        const project = this.getProjectByName(projectName);
-        const tasksArray = this.loadTasks(project);
-        tasksArray.forEach((task) => {
-            console.log(task.getName());
-        })
-    }
+  // addNewProject(newProjectName) {
+  //   const project = new Project(newProjectName)
+  //   toDoList.addNewProject(project)
+  // }
 
-    getProjectByName(projectName) {
-        const projectsArray = this.loadToDoList();
-        const project = projectsArray.find((project) => {
-            return project.getName() === projectName;
-        });
-        return project;
-    }
+  // removeProject(projectName) {
+  //   toDoList.removeProject(projectName)
+  // }
 
-    addNewProject(newProjectName) {
-        const project = new Project(newProjectName);
-        toDoList.addNewProject(project);
-    }
+  // addNewTaskToProject(projectName, taskName) {
+  //   const project = this.getProjectByName(projectName)
+  //   const task = this.createTask(taskName)
+  //   project.addNewTask(task)
+  // }
 
-    removeProject(projectName) {
-        toDoList.removeProject(projectName);
-    }
+  // removeTaskFromProject(projectName, taskName) {
+  //   const project = this.getProjectByName(projectName)
+  //   project.removeTask(taskName)
+  // }
 
-    createTask(name) {
-        const task = new Task(name);
-        return task;
-    }
-
-    addNewTaskToProject(projectName, taskName) {
-        const project = this.getProjectByName(projectName);
-        const task = this.createTask(taskName);
-        project.addNewTask(task);
-    }
-
-    removeTaskFromProject(projectName, taskName) {
-        const project = this.getProjectByName(projectName);
-        project.removeTask(taskName);
-    }
-
-    appendSidebarDom() {
-
-    }
-
-
+  appendSidebarDom() {}
 }
