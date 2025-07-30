@@ -1,11 +1,12 @@
 import Project from "./Project.js"
 import Task from "./Task.js"
 import Storage from "./Storage.js"
+import * as DomCollections from "./DomCollections.js"
 
 export default class UI {
   constructor() {}
 
-  displayAllProjects() {
+  displayAllProjectsConsole() {
     const toDoList = Storage.getToDoList()
     const projectsArray = toDoList.getAllProjects()
     projectsArray.forEach((project) => {
@@ -19,6 +20,19 @@ export default class UI {
     tasksArray.forEach((task) => {
       console.log(task.getName())
     })
+  }
+
+  displayAllProjects() {
+    const toDoList = Storage.getToDoList()
+    const projectsArray = toDoList.getAllProjects()
+    for (var i = 3; i < projectsArray.length; i++) {
+      const projectName = projectsArray[i].getName()
+      const projectsButton = document.createElement("button")
+      projectsButton.innerHTML += `<span href="./DueToday.svg" class="inline-icon-myday"></span>${projectName}`
+      DomCollections.sidebar.appendChild(projectsButton)
+    }
+
+    DomCollections
   }
 
   // getProjectByName(projectName) {

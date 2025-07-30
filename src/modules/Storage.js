@@ -56,4 +56,8 @@ export default class Storage {
     project.removeTask(taskName)
     Storage.saveToDoList(toDoList)
   }
+
+  static removeData() {
+    localStorage.clear()
+  }
 }
