@@ -6,7 +6,6 @@ function init() {
   const ui = new UI()
   ui.displayAllProjectsConsole()
   ui.displayAllProjects()
-  ui.displayAllTasks("shit")
 }
 
 init()

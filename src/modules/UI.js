@@ -28,7 +28,34 @@ export default class UI {
       taskDom.innerHTML += `${taskName}`
       DomCollections.taskList.appendChild(taskDom)
     })
+    this.displayTaskInput(projectName)
   }
+
+  displayTaskInput(projectName) {
+    const taskInput = DomCollections.task_input
+    const taskInputButton = DomCollections.task_input_button
+    taskInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        const inputValue = taskInput.value.trim()
+        if (inputValue !== "") {
+          Storage.addNewTaskToProject(projectName, inputValue)
+          taskInput.value = ""
+          this.displayAllTasks(projectName)
+        }
+      }
+    })
+
+    taskInputButton.addEventListener("click", () => {
+      const inputValue = taskInput.value.trim()
+      if (inputValue !== "") {
+        Storage.addNewTaskToProject(projectName, inputValue)
+        taskInput.value = ""
+        this.displayAllTasks(projectName)
+      }
+    })
+  }
+
+  appendNewTaskOption() {}
 
   displayAllProjects() {
     const toDoList = Storage.getToDoList()
@@ -46,6 +73,7 @@ export default class UI {
     for (var i = 3; i < projectsArray.length; i++) {
       const projectName = projectsArray[i].getName()
       const projectsButton = document.createElement("button")
+      projectsButton.classList.add("project-button")
       projectsButton.innerHTML += `<span class="inline-icon-list"></span>${projectName}`
       projectsButton.addEventListener("click", () => {
         this.displayAllTasks(projectName)
