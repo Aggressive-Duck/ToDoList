@@ -9,6 +9,7 @@ export default class UI {
   constructor() {}
   initialize() {
     this.displayAllProjects()
+    this.newProjectInput()
   }
 
   displayAllProjectsConsole() {
@@ -78,6 +79,10 @@ export default class UI {
   displayAllProjects() {
     const toDoList = Storage.getToDoList()
     const projectsArray = toDoList.getAllProjects()
+
+    const projects = document.querySelectorAll(".project-button.user-project")
+    projects.forEach((project) => project.remove())
+
     for (let i = 0; i < 3; i++) {
       const buttons = document.querySelectorAll(".sidebar button")
       const projectName = projectsArray[i].getName()
@@ -89,7 +94,7 @@ export default class UI {
     for (let i = 3; i < projectsArray.length; i++) {
       const projectName = projectsArray[i].getName()
       const projectsButton = document.createElement("button")
-      projectsButton.classList.add("project-button")
+      projectsButton.classList.add("project-button", "user-project")
       projectsButton.innerHTML += `<span class="inline-icon-list"></span>${projectName}`
       projectsButton.addEventListener("click", () => {
         this.displayAllTasks(projectName)
@@ -107,6 +112,41 @@ export default class UI {
     })
 
     DomCollections.default_button.click()
+  }
+
+  newProjectInput() {
+    const projectInput = DomCollections.project_input
+    projectInput.addEventListener("keydown", (e) => {
+      const inputValue = projectInput.value.trim()
+      if (e.key === "Enter" && this.isProjectNotInList(inputValue)) {
+        Storage.addNewProject(inputValue)
+        this.displayAllProjects()
+        projectInput.value = ""
+      }
+    })
+  }
+
+  isProjectNotInList(projectName) {
+    const toDoList = Storage.getToDoList()
+    const projectsArray = toDoList.getAllProjects()
+    for (let i = 0; i < projectsArray.length; i++) {
+      if (projectName === projectsArray[i].getName()) {
+        return false
+      }
+    }
+    return true
+  }
+
+  isTaskNotInList(taskName, projectName) {
+    const toDoList = Storage.getToDoList()
+    const project = toDoList.getProject(projectName)
+    const tasksArray = project.getTasks()
+    for (let i = 0; i < tasksArray.length; i++) {
+      if (taskName === tasksArray[i].getName()) {
+        return false
+      }
+    }
+    return true
   }
 
   // getProjectByName(projectName) {

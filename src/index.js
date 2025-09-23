@@ -5,7 +5,7 @@ import Storage from "./modules/Storage.js"
 function init() {
   const ui = new UI()
   ui.displayAllProjectsConsole()
-  ui.displayAllProjects()
+  ui.initialize()
 }
 
 init()

@@ -1,4 +1,5 @@
 export const projectList = document.querySelector(".project-list")
+export const project_input = document.querySelector(".new-project-input")
 export const main = document.querySelector(".main")
 export const taskList = document.querySelector(".taskList")
 export const task_input = document.querySelector(".new-task-input")
