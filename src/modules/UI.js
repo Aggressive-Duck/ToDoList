@@ -2,9 +2,14 @@ import Project from "./Project.js"
 import Task from "./Task.js"
 import Storage from "./Storage.js"
 import * as DomCollections from "./DomCollections.js"
+import { tr } from "date-fns/locale"
+import { add } from "date-fns"
 
 export default class UI {
   constructor() {}
+  initialize() {
+    this.displayAllProjects()
+  }
 
   displayAllProjectsConsole() {
     const toDoList = Storage.getToDoList()
@@ -28,31 +33,44 @@ export default class UI {
       taskDom.innerHTML += `${taskName}`
       DomCollections.taskList.appendChild(taskDom)
     })
-    this.displayTaskInput(projectName)
+    this.displayTaskInput()
   }
 
-  displayTaskInput(projectName) {
-    const taskInput = DomCollections.task_input
-    const taskInputButton = DomCollections.task_input_button
-    taskInput.addEventListener("keydown", (e) => {
+  displayTaskInput() {
+    const taskInput = document.querySelector(".new-task-input")
+    const taskInputButton = document.querySelector(".new-task-input-btn")
+
+    if (!taskInput || !taskInputButton) {
+      console.error("Task input elements not found")
+      return
+    }
+
+    const newTaskInput = taskInput.cloneNode(true)
+    const newTaskInputButton = taskInputButton.cloneNode(true)
+    taskInput.parentNode.replaceChild(newTaskInput, taskInput)
+    taskInputButton.parentNode.replaceChild(newTaskInputButton, taskInputButton)
+
+    const addTask = () => {
+      const inputValue = newTaskInput.value.trim()
+      if (inputValue !== "") {
+        const activeButton = document.querySelector(".sidebar button.active")
+        const currentProject = activeButton
+          ? activeButton.textContent.trim()
+          : "My Day"
+
+        Storage.addNewTaskToProject(currentProject, inputValue)
+        newTaskInput.value = ""
+        this.displayAllTasks(currentProject)
+      }
+    }
+
+    newTaskInput.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
-        const inputValue = taskInput.value.trim()
-        if (inputValue !== "") {
-          Storage.addNewTaskToProject(projectName, inputValue)
-          taskInput.value = ""
-          this.displayAllTasks(projectName)
-        }
+        addTask()
       }
     })
 
-    taskInputButton.addEventListener("click", () => {
-      const inputValue = taskInput.value.trim()
-      if (inputValue !== "") {
-        Storage.addNewTaskToProject(projectName, inputValue)
-        taskInput.value = ""
-        this.displayAllTasks(projectName)
-      }
-    })
+    newTaskInputButton.addEventListener("click", addTask)
   }
 
   appendNewTaskOption() {}
@@ -60,17 +78,15 @@ export default class UI {
   displayAllProjects() {
     const toDoList = Storage.getToDoList()
     const projectsArray = toDoList.getAllProjects()
-    for (var i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i++) {
       const buttons = document.querySelectorAll(".sidebar button")
       const projectName = projectsArray[i].getName()
-      buttons.forEach((b) =>
-        b.addEventListener("click", () => {
-          this.displayAllTasks(projectName)
-        })
-      )
+      buttons[i].addEventListener("click", () => {
+        this.displayAllTasks(projectName)
+      })
     }
 
-    for (var i = 3; i < projectsArray.length; i++) {
+    for (let i = 3; i < projectsArray.length; i++) {
       const projectName = projectsArray[i].getName()
       const projectsButton = document.createElement("button")
       projectsButton.classList.add("project-button")
@@ -78,7 +94,7 @@ export default class UI {
       projectsButton.addEventListener("click", () => {
         this.displayAllTasks(projectName)
       })
-      DomCollections.sidebar.appendChild(projectsButton)
+      DomCollections.projectList.appendChild(projectsButton)
     }
 
     //single active button color state
@@ -89,6 +105,8 @@ export default class UI {
         btn.classList.add("active")
       })
     })
+
+    DomCollections.default_button.click()
   }
 
   // getProjectByName(projectName) {

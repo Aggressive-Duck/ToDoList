@@ -9,11 +9,20 @@
     <div class="header"></div>
 
     <div class="sidebar">
-      <button class="project-button">
-        <span href="./DueToday.svg" class="inline-icon-myday"></span>My Day
-      </button>
-      <button class="project-button">Due Today</button>
-      <button class="project-button">Due This Week</button>
+      <div class="project-list">
+        <button class="project-button default-button">
+          <span href="./DueToday.svg" class="inline-icon-myday"></span>My Day
+        </button>
+        <button class="project-button">Due Today</button>
+        <button class="project-button">Due This Week</button>
+      </div>
+      <div class="new-project-input-wrapper">
+        <input
+          type="text"
+          class="new-project-input"
+          placeholder="Add new project..."
+        />
+      </div>
     </div>
 
     <div class="main">
@@ -26,7 +35,7 @@
           <input
             type="text"
             class="new-task-input"
-            placeholder="Add new project..."
+            placeholder="Add new task..."
           />
           <button class="new-task-input-btn">+</button>
         </div>

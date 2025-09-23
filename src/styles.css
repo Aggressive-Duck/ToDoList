@@ -19,8 +19,18 @@
   background-color: rgb(27, 27, 27);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 20px;
+  padding: 0px 20px 20px 20px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.project-list {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .main {
@@ -82,6 +92,7 @@ nav {
   gap: 5px;
   justify-content: center;
 }
+
 .project-button {
   font-family: inherit;
   background-color: #ffffff;
@@ -89,10 +100,10 @@ nav {
   color: black;
   border: none;
   width: 100%;
-  font-size: 20px;
+  font-size: 18px;
   text-align: left;
   cursor: pointer;
-  padding: 10px 20px;
+  padding: 10px 15px;
   border-radius: 5px;
   transition: 0.1s ease-in-out;
 }
@@ -148,7 +159,34 @@ p {
   margin: 0px;
 }
 
-/* ...existing code... */
+.new-project-input-wrapper {
+  display: flex;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.new-project-input {
+  padding: 8px 12px;
+  height: 30px;
+  width: 100%;
+  border: 0px solid #e0e0e021;
+  border-radius: 5px;
+  font-size: 18px;
+  font-family: inherit;
+  background: #accbcfce;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.new-project-input::placeholder {
+  color: #f9ffffca;
+}
+
+.new-project-input:focus {
+  border: 1.5px solid #3971f4;
+  background: #fff;
+}
+
 .new-task-input-wrapper {
   display: flex;
   align-items: center;
@@ -166,7 +204,7 @@ p {
   border-radius: 5px;
   font-size: 18px;
   font-family: inherit;
-  background: #3b41567b;
+  background: #accbcfce;
   outline: none;
   transition: border 0.2s;
 }
@@ -199,4 +237,3 @@ p {
 .new-task-input-btn:hover {
   background: #009e8e;
 }
-/* ...existing code... */

@@ -1,5 +1,6 @@
-export const sidebar = document.querySelector(".sidebar")
+export const projectList = document.querySelector(".project-list")
 export const main = document.querySelector(".main")
 export const taskList = document.querySelector(".taskList")
 export const task_input = document.querySelector(".new-task-input")
 export const task_input_button = document.querySelector(".new-task-input-btn")
+export const default_button = document.querySelector(".default-button")
