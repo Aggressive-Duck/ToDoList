@@ -12,8 +12,8 @@ export default class Task {
     return this.name
   }
 
-  setDueDate(dueDate) {
-    this.dueDate = dueDate
+  setDueDate(date) {
+    this.dueDate = date
   }
 
   getDueDate() {

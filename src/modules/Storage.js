@@ -57,6 +57,14 @@ export default class Storage {
     Storage.saveToDoList(toDoList)
   }
 
+  static changeDueDateFromTask(dueDate, projectName, taskName) {
+    const toDoList = Storage.getToDoList()
+    const project = toDoList.getProject(projectName)
+    const task = project.getTask(taskName)
+    task.setDueDate(dueDate)
+    Storage.saveToDoList(toDoList)
+  }
+
   static removeData() {
     localStorage.clear()
   }

@@ -3,7 +3,7 @@ import Task from "./Task.js"
 import Storage from "./Storage.js"
 import * as DomCollections from "./DomCollections.js"
 import { tr } from "date-fns/locale"
-import { add } from "date-fns"
+import { add, parseISO } from "date-fns"
 
 export default class UI {
   constructor() {}
@@ -29,9 +29,24 @@ export default class UI {
       console.log(task.getName())
 
       const taskName = task.getName()
+      const taskDate = task.getDueDate() === "No Date" ? "" : task.getDueDate()
       const taskDom = document.createElement("div")
       taskDom.classList.add("task")
-      taskDom.innerHTML += `${taskName}`
+      taskDom.innerHTML += `<span class="task-name">${taskName}</span>
+      <input type="date" class="task-date-input" value="${taskDate}" data-task="${taskName}">`
+
+      const dateInput = taskDom.querySelector(".task-date-input")
+      dateInput.addEventListener("change", (e) => {
+        const selectedDate = e.target.value
+        const taskName = e.target.dataset.task.trim()
+        console.log(`Task: ${taskName}, Date: ${selectedDate}`)
+        Storage.changeDueDateFromTask(
+          selectedDate || "No Date",
+          this.getCurrentProject(),
+          taskName
+        )
+      })
+
       DomCollections.taskList.appendChild(taskDom)
     })
     this.displayTaskInput()
@@ -124,6 +139,12 @@ export default class UI {
         projectInput.value = ""
       }
     })
+  }
+
+  getCurrentProject() {
+    const activeButton = document.querySelector(".sidebar button.active")
+    const currentProjectName = activeButton.textContent.trim()
+    return currentProjectName
   }
 
   isProjectNotInList(projectName) {

@@ -22,14 +22,17 @@
   padding: 0px 20px 20px 20px;
   height: 100%;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .project-list {
-  flex: 1;
-  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  flex: 1 1 auto;
   margin-bottom: 10px;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
   min-height: 0;
 }
 
@@ -138,11 +141,12 @@ button.active {
 
 .task {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin: 0px;
   height: 30px;
   padding: 4px 6px;
   font-size: 18px;
-  align-items: stretch;
   border: none;
 }
 
@@ -236,4 +240,31 @@ p {
 
 .new-task-input-btn:hover {
   background: #009e8e;
+}
+
+.new-task-date-input {
+  box-sizing: border-box;
+  padding: 8px 12px;
+  height: 40px;
+  width: 150px;
+  border: 0px solid #e0e0e021;
+  border-radius: 5px;
+  font-size: 16px;
+  font-family: inherit;
+  background: #3b41567b;
+  color: #f9ffffca;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.new-task-date-input:focus {
+  border: 1.5px solid #3971f4;
+  background: #fff;
+  color: #000;
+}
+
+.task-date {
+  font-size: 14px;
+  color: #888;
+  margin-left: auto;
 }
